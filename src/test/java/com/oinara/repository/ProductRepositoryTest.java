@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,5 +32,27 @@ class ProductRepositoryTest {
         product.setUpdateTime(LocalDateTime.now());
         Product savedProduct = productRepository.save(product);
         System.out.println(savedProduct.toString());
+    }
+
+    public void createProductList() {
+        for (int i = 1; i <= 10; i++) {
+            Product product = new Product();
+            product.setProductName("테스트 상품" + i);
+            product.setPrice(10000 + i);
+            product.setDescription("테스트 상품 상세 설명" + i);
+            product.setProductSellStatus(ProductSellStatus.SELL);
+            product.setUpdateTime(LocalDateTime.now());
+            Product savedProduct = productRepository.save(product);
+        }
+    }
+
+    @Test
+    @DisplayName("상품명 조회 테스트")
+    public void findByProductNameTest() {
+        this.createProductList();
+        List<Product> productList = productRepository.findByProductName("테스트 상품1");
+        for (Product product : productList) {
+            System.out.println(product.toString());
+        }
     }
 }
