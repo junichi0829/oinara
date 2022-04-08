@@ -18,10 +18,10 @@ public class Product {
     @Id
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int product_id; //상품id
+    private Long productId; //상품id
 
     @Column(name = "product_name", nullable = false, length = 50)
-    private String product_name; //상품명
+    private String productName; //상품명
 
     @Column(name = "price", nullable = false)
     private int price; //상품가격
