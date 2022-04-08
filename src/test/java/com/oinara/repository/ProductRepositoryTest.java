@@ -86,4 +86,24 @@ class ProductRepositoryTest {
             System.out.println(product.toString());
         }
     }
+
+    @Test
+    @DisplayName("@Query를 이용한 상품 조회 테스트")
+    public void findByDescriptionTest() {
+        this.createProductList();
+        List<Product> productList = productRepository.findByDescription("테스트 상품 상세 설명");
+        for (Product product : productList) {
+            System.out.println(product.toString());
+        }
+    }
+
+    @Test
+    @DisplayName("nativeQuery 속성을 이용한 상품 조회 테스트")
+    public void findByDescriptionByNative() {
+        this.createProductList();
+        List<Product> productList = productRepository.findByDescriptionByNative("테스트 상품 상세 설명");
+        for (Product product : productList) {
+            System.out.println(product.toString());
+        }
+    }
 }
