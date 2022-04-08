@@ -55,4 +55,14 @@ class ProductRepositoryTest {
             System.out.println(product.toString());
         }
     }
+
+    @Test
+    @DisplayName("상품명, 상품상세설명 or 테스트")
+    public void findByProductNameOrDescriptionTest() {
+        this.createProductList();
+        List<Product> productList = productRepository.findByProductNameOrDescription("테스트 상품1", "테스트 상품 상세 설명5");
+        for (Product product : productList) {
+            System.out.println(product.toString());
+        }
+    }
 }
