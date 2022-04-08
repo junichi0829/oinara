@@ -65,4 +65,14 @@ class ProductRepositoryTest {
             System.out.println(product.toString());
         }
     }
+
+    @Test
+    @DisplayName("가격 LessThan 테스트")
+    public void findByPriceLessThanTest() {
+        this.createProductList();
+        List<Product> productList = productRepository.findByPriceLessThan(10005);
+        for (Product product : productList) {
+            System.out.println(product.toString());
+        }
+    }
 }
