@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
+import javax.sound.sampled.Port;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -71,6 +72,16 @@ class ProductRepositoryTest {
     public void findByPriceLessThanTest() {
         this.createProductList();
         List<Product> productList = productRepository.findByPriceLessThan(10005);
+        for (Product product : productList) {
+            System.out.println(product.toString());
+        }
+    }
+
+    @Test
+    @DisplayName("가격 내림차순 조회 테스트")
+    public void findByPriceLessThanOrderByPriceDesc() {
+        this.createProductList();
+        List<Product> productList = productRepository.findByPriceLessThanOrderByPriceDesc(10005);
         for (Product product : productList) {
             System.out.println(product.toString());
         }

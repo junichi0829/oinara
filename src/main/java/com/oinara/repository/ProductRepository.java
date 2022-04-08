@@ -13,4 +13,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByPriceLessThan(Integer price);
 
+    List<Product> findByPriceLessThanOrderByPriceDesc(Integer price);
+
 }
