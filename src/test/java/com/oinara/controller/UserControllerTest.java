@@ -53,4 +53,16 @@ public class UserControllerTest {
                         .user(account).password(password))
                         .andExpect(SecurityMockMvcResultMatchers.authenticated());
     }
+
+    @Test
+    @DisplayName("로그인 실패 테스트")
+    public void loginFailTest() throws Exception {
+        String account = "lee";
+        String password = "12345678";
+        this.createUser(account, password);
+        mockMvc.perform(formLogin().userParameter("account")
+                        .loginProcessingUrl("/users/login")
+                        .user(account).password("12345"))
+                        .andExpect(SecurityMockMvcResultMatchers.unauthenticated());
+    }
 }
