@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-@Table(name = "like_item")
+@Table(name = "like_product")
 public class LikeProduct {
 
     @Id
