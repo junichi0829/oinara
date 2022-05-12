@@ -14,7 +14,7 @@ public class ProductLike {
     @Id
     @Column(name = "like_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @OneToOne
     @JoinColumn(name = "user_id")
