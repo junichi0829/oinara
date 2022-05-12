@@ -44,7 +44,7 @@ public class User {
         user.setPhoneNumber(userFormDto.getPhoneNumber());
         String password = passwordEncoder.encode(userFormDto.getPassword());
         user.setPassword(password);
-        user.setRole(Role.USER);
+        user.setRole(Role.ADMIN);
         return user;
     }
 }
