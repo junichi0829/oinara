@@ -1,6 +1,7 @@
 package com.oinara.entity;
 
 import com.oinara.constant.ProductSellStatus;
+import com.oinara.repository.OrderProductRepository;
 import com.oinara.repository.OrderRepository;
 import com.oinara.repository.ProductRepository;
 import com.oinara.repository.UserRepository;
@@ -91,12 +92,27 @@ class OrderTest {
         orderRepository.save(order);
         return order;
     }
-    
+
     @Test
     @DisplayName("고아객체 제거 테스트")
     public void orphanRemovalTest() {
         Order order = this.createOreder();
         order.getOrderProducts().remove(0);
         em.flush();
+    }
+
+    @Autowired
+    OrderProductRepository orderProductRepository;
+
+    @Test
+    @DisplayName("지연 로딩 테스트")
+    public void  lazyLoadingTest() {
+        Order order = this.createOreder();
+        Long orderProductId = order.getOrderProducts().get(0).getId();
+        em.flush();
+        em.clear();
+
+        OrderProduct orderProduct = orderProductRepository.findById(orderProductId).orElseThrow(EntityNotFoundException::new);
+        System.out.println("Order class : " + orderProduct.getOrder().getClass());
     }
 }
