@@ -3,6 +3,7 @@ package com.oinara.entity;
 import com.oinara.constant.ProductSellStatus;
 import com.oinara.repository.OrderRepository;
 import com.oinara.repository.ProductRepository;
+import com.oinara.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +65,38 @@ class OrderTest {
 
         Order savedOrder = orderRepository.findById(order.getId()).orElseThrow(EntityNotFoundException::new);
         assertEquals(3, savedOrder.getOrderProducts().size());
+    }
+
+    @Autowired
+    UserRepository userRepository;
+
+    public Order createOreder() {
+        Order order = new Order();
+
+        for (int i = 0; i < 3; i++) {
+            Product product = createProduct();
+            productRepository.save(product);
+            OrderProduct orderProduct = new OrderProduct();
+            orderProduct.setProduct(product);
+            orderProduct.setCount(10);
+            orderProduct.setOrderPrice(1000);
+            orderProduct.setOrder(order);
+            order.getOrderProducts().add(orderProduct);
+        }
+
+        User user = new User();
+        userRepository.save(user);
+
+        order.setUser(user);
+        orderRepository.save(order);
+        return order;
+    }
+    
+    @Test
+    @DisplayName("고아객체 제거 테스트")
+    public void orphanRemovalTest() {
+        Order order = this.createOreder();
+        order.getOrderProducts().remove(0);
+        em.flush();
     }
 }
