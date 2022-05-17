@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 @Table(name = "like_product")
-public class LikeProduct {
+public class LikeProduct extends BaseEntity {
 
     @Id
     @GeneratedValue

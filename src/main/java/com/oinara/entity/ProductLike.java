@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "product_like")
 @Getter @Setter
 @ToString
-public class ProductLike {
+public class ProductLike extends BaseEntity {
     @Id
     @Column(name = "like_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
