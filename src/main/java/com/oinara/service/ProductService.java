@@ -1,0 +1,45 @@
+package com.oinara.service;
+
+import com.oinara.dto.ProductFormDto;
+import com.oinara.entity.Product;
+import com.oinara.entity.ProductImg;
+import com.oinara.repository.ProductImgRepository;
+import com.oinara.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class ProductService {
+
+    private final ProductRepository productRepository;
+    private final ProductImgService productImgService;
+    private final ProductImgRepository productImgRepository;
+
+    public Long saveProduct(ProductFormDto productFormDto, List<MultipartFile> productImgFileList) throws Exception {
+
+        //상품 등록
+        Product product = productFormDto.createProduct();
+        productRepository.save(product);
+
+        //이미지 등록
+        for(int i = 0; i < productImgFileList.size(); i++) {
+            ProductImg productImg = new ProductImg();
+            productImg.setProduct(product);
+
+            if(i == 0)
+                productImg.setRepimgYn("Y");
+
+            else
+                productImg.setRepimgYn("N");
+            productImgService.saveProductImg(productImg, productImgFileList.get(i));
+        }
+
+        return product.getProductId();
+    }
+}
