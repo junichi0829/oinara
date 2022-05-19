@@ -1,6 +1,7 @@
 package com.oinara.service;
 
 import com.oinara.dto.ProductFormDto;
+import com.oinara.dto.ProductImgDto;
 import com.oinara.entity.Product;
 import com.oinara.entity.ProductImg;
 import com.oinara.repository.ProductImgRepository;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,4 +45,20 @@ public class ProductService {
 
         return product.getProductId();
     }
+
+//    @Transactional(readOnly = true)
+//    public ProductFormDto getProductDtl(Long productId) {
+//
+//        List<ProductImg> productImgList = productImgRepository.findByProductIdOrderByIdAsc(productId);
+//        List<ProductImgDto> productImgDtoList = new ArrayList<>();
+//        for (ProductImg productImg : productImgList) {
+//            ProductImgDto productImgDto = ProductImgDto.of(productImg);
+//            productImgDtoList.add(productImgDto);
+//        }
+//
+//        Product product = productRepository.findById(productId).orElseThrow(EntityNotFoundException::new);
+//        ProductFormDto productFormDto = ProductFormDto.of(product);
+//        productFormDto.setProductImgDtoList(productImgDtoList);
+//        return productFormDto;
+//    }
 }
