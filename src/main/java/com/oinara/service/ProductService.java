@@ -61,4 +61,20 @@ public class ProductService {
         productFormDto.setProductImgDtoList(productImgDtoList);
         return productFormDto;
     }
+
+    public Long updateProduct(ProductFormDto productFormDto, List<MultipartFile> productImgFileList) throws Exception {
+
+        //상품 수정
+        Product product = productRepository.findById(productFormDto.getId()).orElseThrow(EntityNotFoundException::new);
+        product.updateProduct(productFormDto);
+
+        List<Long> productImgIds = productFormDto.getProductImgIds();
+
+        //이미지 등록
+        for (int i = 0; i < productImgFileList.size(); i++) {
+            productImgService.updateProductImg(productImgIds.get(i), productImgFileList.get(i));
+        }
+
+        return product.getProductId();
+    }
 }
