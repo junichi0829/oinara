@@ -1,6 +1,7 @@
 package com.oinara.entity;
 
 import com.oinara.constant.ProductSellStatus;
+import com.oinara.dto.ProductFormDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -32,4 +33,11 @@ public class Product extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private ProductSellStatus productSellStatus; //상품 판매 상태
+
+    public void updateProduct(ProductFormDto productFormDto) {
+        this.productName = productFormDto.getProductName();
+        this.price = productFormDto.getPrice();
+        this.description = productFormDto.getDescription();
+        this.productSellStatus = productFormDto.getProductSellStatus();
+    }
 }
