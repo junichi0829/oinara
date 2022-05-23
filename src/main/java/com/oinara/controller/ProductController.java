@@ -64,4 +64,26 @@ public class ProductController {
 
         return "product/productForm";
     }
+
+    @PostMapping(value = "/admin/product/{productId}")
+    public String productUpdate(@Valid ProductFormDto productFormDto, BindingResult bindingResult, @RequestParam("productImgFile") List<MultipartFile> productImgFileList, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "product/productForm";
+        }
+
+        if (productImgFileList.get(0).isEmpty() && productFormDto.getId() == null) {
+            model.addAttribute("errorMessage", "첫 번째 상품 이미지는 필수로 입력해 주세요");
+            return "product/productForm";
+        }
+
+        try {
+            productService.updateProduct(productFormDto, productImgFileList);
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "상품 수정 중 에러가 발생하였습니다");
+            return "product/productForm";
+        }
+
+        return "redirect:/";
+    }
 }
