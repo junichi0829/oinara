@@ -46,19 +46,19 @@ public class ProductService {
         return product.getProductId();
     }
 
-//    @Transactional(readOnly = true)
-//    public ProductFormDto getProductDtl(Long productId) {
-//
-//        List<ProductImg> productImgList = productImgRepository.findByProductIdOrderByIdAsc(productId);
-//        List<ProductImgDto> productImgDtoList = new ArrayList<>();
-//        for (ProductImg productImg : productImgList) {
-//            ProductImgDto productImgDto = ProductImgDto.of(productImg);
-//            productImgDtoList.add(productImgDto);
-//        }
-//
-//        Product product = productRepository.findById(productId).orElseThrow(EntityNotFoundException::new);
-//        ProductFormDto productFormDto = ProductFormDto.of(product);
-//        productFormDto.setProductImgDtoList(productImgDtoList);
-//        return productFormDto;
-//    }
+    @Transactional(readOnly = true)
+    public ProductFormDto getProductDtl(Product product) {
+
+        List<ProductImg> productImgList = productImgRepository.findByProductOrderByIdAsc(product);
+        List<ProductImgDto> productImgDtoList = new ArrayList<>();
+        for (ProductImg productImg : productImgList) {
+            ProductImgDto productImgDto = ProductImgDto.of(productImg);
+            productImgDtoList.add(productImgDto);
+        }
+
+        product = productRepository.findById(product.getProductId()).orElseThrow(EntityNotFoundException::new);
+        ProductFormDto productFormDto = ProductFormDto.of(product);
+        productFormDto.setProductImgDtoList(productImgDtoList);
+        return productFormDto;
+    }
 }

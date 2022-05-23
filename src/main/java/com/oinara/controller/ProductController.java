@@ -1,6 +1,7 @@
 package com.oinara.controller;
 
 import com.oinara.dto.ProductFormDto;
+import com.oinara.entity.Product;
 import com.oinara.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -47,5 +48,20 @@ public class ProductController {
         }
 
         return "redirect:/";
+    }
+
+    @GetMapping(value = "/admin/product/{productId}")
+    public String productDtl(@PathVariable("productId") Product product, Model model) {
+
+        try {
+            ProductFormDto productFormDto = productService.getProductDtl(product);
+            model.addAttribute("productFormDto", productFormDto);
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("errorMessage", "존재하지 않는 상품입니다");
+            model.addAttribute("productFormDto", new ProductFormDto());
+            return "product/productForm";
+        }
+
+        return "product/productForm";
     }
 }
