@@ -9,7 +9,7 @@ public class ProductSearchDto {
 
     private String searchDataType;
 
-    private ProductSellStatus productSellStatus;
+    private ProductSellStatus searchSellStatus;
 
     private String searchBy;
 
