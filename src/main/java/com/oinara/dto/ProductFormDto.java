@@ -17,13 +17,13 @@ public class ProductFormDto {
     private Long id;
 
     @NotBlank(message = "상품명 입력은 필수입니다.")
-    private String ProductNm;
+    private String ProductName;
 
     @NotNull(message = "가격 입력은 필수입니다.")
     private Integer price;
 
-    @NotBlank(message = "이릅 입력은 필수입니다.")
-    private String productDetail;
+    @NotBlank(message = "이름 입력은 필수입니다.")
+    private String description;
 
     private ProductSellStatus productSellStatus;
 

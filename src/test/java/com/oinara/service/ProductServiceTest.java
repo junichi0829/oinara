@@ -54,9 +54,9 @@ class ProductServiceTest {
     @WithMockUser(username = "admin", roles = "ADMIN")
     void saveProduct() throws Exception {
         ProductFormDto productFormDto = new ProductFormDto();
-        productFormDto.setProductNm("테스트상품");
+        productFormDto.setProductName("테스트상품");
         productFormDto.setProductSellStatus(ProductSellStatus.SELL);
-        productFormDto.setProductDetail("테스트 상품입니다");
+        productFormDto.setDescription("테스트 상품입니다");
         productFormDto.setPrice(1000);
 
         List<MultipartFile> multipartFileList = createMultipartFiles();
@@ -65,9 +65,9 @@ class ProductServiceTest {
         Product product = productRepository.findById(productId).orElseThrow(EntityNotFoundException::new);
         List<ProductImg> productImgList = productImgRepository.findByProductOrderByIdAsc(product);
 
-        assertEquals(productFormDto.getProductNm(), product.getProductName());
+        assertEquals(productFormDto.getProductName(), product.getProductName());
         assertEquals(productFormDto.getProductSellStatus(), product.getProductSellStatus());
-        assertEquals(productFormDto.getProductDetail(), product.getDescription());
+        assertEquals(productFormDto.getDescription(), product.getDescription());
         assertEquals(productFormDto.getPrice(), product.getPrice());
         assertEquals(multipartFileList.get(0).getOriginalFilename(), productImgList.get(0).getOriImgName());
     }
