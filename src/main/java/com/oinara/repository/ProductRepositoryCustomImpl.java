@@ -1,9 +1,12 @@
 package com.oinara.repository;
 
 import com.oinara.constant.ProductSellStatus;
+import com.oinara.dto.MainProductDto;
 import com.oinara.dto.ProductSearchDto;
+import com.oinara.dto.QMainProductDto;
 import com.oinara.entity.Product;
 import com.oinara.entity.QProduct;
+import com.oinara.entity.QProductImg;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -71,6 +74,38 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .fetchResults();
 
         List<Product> content = results.getResults();
+        long total = results.getTotal();
+        return new PageImpl<>(content, pageable, total);
+    }
+
+    private BooleanExpression productNameLike(String searchQuery) {
+        return StringUtils.isEmpty(searchQuery) ? null : QProduct.product.productName.like("%" + searchQuery + "%");
+    }
+
+    @Override
+    public Page<MainProductDto> getMainProductPage(ProductSearchDto productSearchDto, Pageable pageable) {
+        QProduct product = QProduct.product;
+        QProductImg productImg = QProductImg.productImg;
+
+        QueryResults<MainProductDto> results = queryFactory.select(
+                        new QMainProductDto(
+                                product.productId,
+                                product.productName,
+                                product.description,
+                                productImg.imgUrl,
+                                product.price
+                        )
+                )
+                .from(productImg)
+                .join(productImg.product, product)
+                .where(productImg.repimgYn.eq("Y"))
+                .where(productNameLike(productSearchDto.getSearchQuery()))
+                .orderBy(product.productId.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+
+        List<MainProductDto> content = results.getResults();
         long total = results.getTotal();
         return new PageImpl<>(content, pageable, total);
     }
