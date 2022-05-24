@@ -1,5 +1,6 @@
 package com.oinara.service;
 
+import com.oinara.dto.MainProductDto;
 import com.oinara.dto.ProductFormDto;
 import com.oinara.dto.ProductImgDto;
 import com.oinara.dto.ProductSearchDto;
@@ -84,5 +85,10 @@ public class ProductService {
     @Transactional(readOnly = true)
     public Page<Product> getAdminProductPage(ProductSearchDto productSearchDto, Pageable pageable) {
         return productRepository.getAdminProductPage(productSearchDto, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<MainProductDto> getMainProductPage(ProductSearchDto productSearchDto, Pageable pageable) {
+        return productRepository.getMainProductPage(productSearchDto, pageable);
     }
 }
