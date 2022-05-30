@@ -24,4 +24,16 @@ public class LikeProduct extends BaseEntity {
     private Product product;
 
     private int count;
+
+    public static LikeProduct createLikeProduct(ProductLike productLike, Product product, int count) {
+        LikeProduct likeProduct = new LikeProduct();
+        likeProduct.setProductLike(productLike);
+        likeProduct.setProduct(product);
+        likeProduct.setCount(count);
+        return likeProduct;
+    }
+
+    public void addCount(int count) {
+        this.count += count;
+    }
 }
