@@ -40,10 +40,10 @@ public class ProductService {
             productImg.setProduct(product);
 
             if (i == 0)
-                productImg.setRepimgYn("Y");
+                productImg.setRepImgYn("Y");
 
             else
-                productImg.setRepimgYn("N");
+                productImg.setRepImgYn("N");
             productImgService.saveProductImg(productImg, productImgFileList.get(i));
         }
 
