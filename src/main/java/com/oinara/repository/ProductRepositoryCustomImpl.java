@@ -98,7 +98,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 )
                 .from(productImg)
                 .join(productImg.product, product)
-                .where(productImg.repimgYn.eq("Y"))
+                .where(productImg.repImgYn.eq("Y"))
                 .where(productNameLike(productSearchDto.getSearchQuery()))
                 .orderBy(product.productId.desc())
                 .offset(pageable.getOffset())
