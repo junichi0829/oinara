@@ -19,7 +19,7 @@ public class Product extends BaseEntity {
     @Id
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long productId; //상품id
+    private Long id; //상품id
 
     @Column(name = "product_name", nullable = false, length = 50)
     private String productName; //상품명

@@ -47,7 +47,7 @@ public class ProductService {
             productImgService.saveProductImg(productImg, productImgFileList.get(i));
         }
 
-        return product.getProductId();
+        return product.getId();
     }
 
     @Transactional(readOnly = true)
@@ -60,7 +60,7 @@ public class ProductService {
             productImgDtoList.add(productImgDto);
         }
 
-        product = productRepository.findById(product.getProductId()).orElseThrow(EntityNotFoundException::new);
+        product = productRepository.findById(product.getId()).orElseThrow(EntityNotFoundException::new);
         ProductFormDto productFormDto = ProductFormDto.of(product);
         productFormDto.setProductImgDtoList(productImgDtoList);
         return productFormDto;
@@ -79,7 +79,7 @@ public class ProductService {
             productImgService.updateProductImg(productImgIds.get(i), productImgFileList.get(i));
         }
 
-        return product.getProductId();
+        return product.getId();
     }
 
     @Transactional(readOnly = true)
