@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductLikeController {
 
-    /*private final ProductLikeService productLikeService;
+    private final ProductLikeService productLikeService;
 
     @PostMapping(value = "/productLike")
     public @ResponseBody
@@ -43,5 +43,5 @@ public class ProductLikeController {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<Long>(likeProductId, HttpStatus.OK);
-    }*/
+    }
 }

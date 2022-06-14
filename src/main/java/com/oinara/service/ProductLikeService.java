@@ -20,7 +20,7 @@ import javax.persistence.EntityNotFoundException;
 @Transactional
 public class ProductLikeService {
 
-    /*private final ProductRepository productRepository;
+    private final ProductRepository productRepository;
     private final UserRepository userRepository;
     private final ProductLikeRepository productLikeRepository;
     private final LikeProductRepository likeProductRepository;
@@ -35,7 +35,7 @@ public class ProductLikeService {
             productLikeRepository.save(productLike);
         }
 
-        LikeProduct savedLikeProduct = likeProductRepository.findByLikeIdAndProductId(productLike.getId(), product.getProductId());
+        LikeProduct savedLikeProduct = likeProductRepository.findByProductLikeAndProduct(productLike, product);
 
         if (savedLikeProduct != null) {
             savedLikeProduct.addCount(likeProductDto.getCount());
@@ -45,5 +45,5 @@ public class ProductLikeService {
             likeProductRepository.save(likeProduct);
             return likeProduct.getId();
         }
-    }*/
+    }
 }
