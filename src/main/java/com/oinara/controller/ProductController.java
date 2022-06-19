@@ -101,4 +101,11 @@ public class ProductController {
         model.addAttribute("maxPage", 5);
         return "product/productMng";
     }
+
+    @GetMapping(value = "/product/{productId}")
+    public String productDtl(Model model, @PathVariable("productId") Product product) {
+        ProductFormDto productFormDto = productService.getProductDtl(product);
+        model.addAttribute("product", productFormDto);
+        return "product/productDtl";
+    }
 }

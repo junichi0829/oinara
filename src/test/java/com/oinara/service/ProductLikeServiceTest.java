@@ -53,7 +53,7 @@ class ProductLikeServiceTest {
 
     @Test
     @DisplayName("찜하기 기능 테스트")
-    public void addLike() {
+    public void addProductLike() {
         Product product = saveProduct();
         User user = saveUser();
 

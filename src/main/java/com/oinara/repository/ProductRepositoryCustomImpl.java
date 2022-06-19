@@ -68,7 +68,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                         searchSellStatusEq(productSearchDto.getSearchSellStatus()),
                         searchByLike(productSearchDto.getSearchBy(),
                                 productSearchDto.getSearchQuery()))
-                .orderBy(QProduct.product.productId.desc())
+                .orderBy(QProduct.product.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();
@@ -89,7 +89,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
         QueryResults<MainProductDto> results = queryFactory.select(
                         new QMainProductDto(
-                                product.productId,
+                                product.id,
                                 product.productName,
                                 product.description,
                                 productImg.imgUrl,
@@ -100,7 +100,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .join(productImg.product, product)
                 .where(productImg.repImgYn.eq("Y"))
                 .where(productNameLike(productSearchDto.getSearchQuery()))
-                .orderBy(product.productId.desc())
+                .orderBy(product.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();

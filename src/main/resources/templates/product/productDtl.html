@@ -14,14 +14,14 @@
     <script th:inline="javascript">
         $(document).ready(function(){
 
-            calculateToalPrice();
+            calculateTotalPrice();
 
             $("#count").change( function(){
-                calculateToalPrice();
+                calculateTotalPrice();
             });
         });
 
-        function calculateToalPrice(){
+        function calculateTotalPrice(){
             var count = $("#count").val();
             var price = $("#price").val();
             var totalPrice = price*count;
@@ -52,14 +52,14 @@
                 dataType : "json",
                 cache   : false,
                 success  : function(result, status){
-                    alert("찜 했습니다");
+                    alert("구매통지 했습니다");
                     location.href='/';
                 },
                 error : function(jqXHR, status, error){
 
                     if(jqXHR.status == '401'){
                         alert('로그인 후 이용해주세요');
-                        location.href='/members/login';
+                        location.href='/users/login';
                     } else{
                         alert(jqXHR.responseText);
                     }
@@ -68,13 +68,13 @@
             });
         }
 
-        function addCart(){
+        function addProductLike(){
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
-            var url = "/productlike";
+            var url = "/productLike";
             var paramData = {
-                itemId : $("#productId").val(),
+                productId : $("#productId").val(),
                 count : $("#count").val()
             };
 
@@ -99,7 +99,7 @@
 
                     if(jqXHR.status == '401'){
                         alert('로그인 후 이용해주세요');
-                        location.href='/user/login';
+                        location.href='/users/login';
                     } else{
                         alert(jqXHR.responseText);
                     }
@@ -145,16 +145,16 @@
 
     <div class="d-flex">
         <div class="repImgDiv">
-            <img th:src="${product.productImgDtoList[0].imgUrl}" class = "rounded repImg" th:alt="${product.productNm}">
+            <img th:src="${product.productImgDtoList[0].imgUrl}" class = "rounded repImg" th:alt="${product.productName}">
         </div>
         <div class="wd50">
-            <span th:if="${product.productSellStatus == T(com.shop.constant.productSellStatus).SELL}" class="badge badge-primary mgb-15">
+            <span th:if="${product.productSellStatus == T(com.oinara.constant.ProductSellStatus).SELL}" class="badge badge-primary mgb-15">
                 판매중
             </span>
-            <span th:unless="${product.itemSellStatus == T(com.shop.constant.productSellStatus).SELL}" class="badge btn-danger mgb-15" >
+            <span th:unless="${product.productSellStatus == T(com.oinara.constant.ProductSellStatus).SELL}" class="badge btn-danger mgb-15" >
                 판매완료
             </span>
-            <div class="h4" th:text="${product.productNm}"></div>
+            <div class="h4" th:text="${product.productName}"></div>
             <hr class="my-4">
 
             <div class="text-right">
@@ -172,14 +172,13 @@
             <hr class="my-4">
 
             <div class="text-right mgt-50">
-                <h5>결제예정 금액</h5>
+                <h5>판매가격</h5>
                 <h3 name="totalPrice" id="totalPrice" class="font-weight-bold"></h3>
             </div>
-            <div th:if="${product.productSellStatus == T(com.shop.constant.productSellStatus).SELL}" class="text-right">
-                <button type="button" class="btn btn-light border border-primary btn-lg" onclick="addCart()">찜하기</button>
-                <button type="button" class="btn btn-primary btn-lg" onclick="order()">채팅하기</button>
+            <div th:if="${product.productSellStatus == T(com.oinara.constant.ProductSellStatus).SELL}" class="text-right">
+                <button type="button" class="btn btn-light border border-primary btn-lg" onclick="addProductLike()" style="green;">찜하기</button>
             </div>
-            <div th:unless="${product.productSellStatus == T(com.shop.constant.productSellStatus).SELL}" class="text-right">
+            <div th:unless="${product.productSellStatus == T(com.oinara.constant.ProductSellStatus).SELL}" class="text-right">
                 <button type="button" class="btn btn-danger btn-lg">판매 완료</button>
             </div>
         </div>
@@ -189,7 +188,7 @@
         <div class="container">
             <h4 class="display-5">상품 상세</h4>
             <hr class="my-4">
-            <p class="lead" th:text="${product.productDetail}"></p>
+            <p class="lead" th:text="${product.description}"></p>
         </div>
     </div>
 
